@@ -3,9 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Menu Merge</title>
+    <style>
+        .menu-item {
+            border: 1px solid #ddd;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .item-name {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .item-description {
+            font-size: 16px;
+        }
+        .item-price {
+            font-size: 14px;
+            color: green;
+        }
+    </style>
 </head>
 <body>
-    
+    <div id="menu" class="container">
+        <h1>Combined Menu</h1>
+    </div>
+
+    <script>
+      let host = "http://localhost:8080"; // Update this to your actual backend host
+      let menuDiv = document.getElementById("menu");
+
+      displayTheMenu();
+
+      async function getTheMenu() {
+        let response = await fetch(`${host}/merger`); // Fetching from the merger endpoint
+        let menu = await response.json();
+        return menu;
+      }
+
+      async function displayTheMenu() {
+        let menu = await getTheMenu();
+        menu.forEach(menuItem => {
+          let div = document.createElement("div");
+          div.className = "menu-item"; // Note: It should be className to set the class
+          div.innerHTML = `
+               <div>
+                <div class="item-name">${menuItem.name}</div>
+                <div class="item-description">${menuItem.description}</div>
+                <div class="item-price">$${menuItem.price.toFixed(2)}</div>
+               </div>
+               `;
+          menuDiv.appendChild(div);
+        });
+      }
+    </script>
 </body>
 </html>
