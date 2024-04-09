@@ -1,61 +1,44 @@
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu Merge</title>
-    <style>
-        .menu-item {
-            border: 1px solid #ddd;
-            margin: 10px;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        .item-name {
-            font-size: 20px;
-            font-weight: bold;
-        }
-        .item-description {
-            font-size: 16px;
-        }
-        .item-price {
-            font-size: 14px;
-            color: green;
-        }
-    </style>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The merger</title>
+    <link href="index.css" rel="stylesheet"/>
+  </head>
+  <body>
     <div id="menu" class="container">
-        <h1>Combined Menu</h1>
+        <h1>Diner-PancakHouse Menu</h1>
     </div>
 
     <script>
-      let host = "http://localhost:8080"; // Update this to your actual backend host
+      let host = "http://localhost:8080";
       let menuDiv = document.getElementById("menu");
 
       displayTheMenu();
 
       async function getTheMenu() {
-        let response = await fetch(`${host}/merger`); // Fetching from the merger endpoint
+        let response = await fetch(host + "/merger");
         let menu = await response.json();
         return menu;
       }
 
       async function displayTheMenu() {
         let menu = await getTheMenu();
-        menu.forEach(menuItem => {
+        for (let menuItem of menu) {
           let div = document.createElement("div");
-          div.className = "menu-item"; // Note: It should be className to set the class
+          div.class = "menu-item";
           div.innerHTML = `
-               <div>
+               <div class="menu-item">
                 <div class="item-name">${menuItem.name}</div>
                 <div class="item-description">${menuItem.description}</div>
-                <div class="item-price">$${menuItem.price.toFixed(2)}</div>
+                <div class="item-price">${menuItem.price}</div>
                </div>
                `;
           menuDiv.appendChild(div);
-        });
+        }
       }
     </script>
-</body>
+  </body>
 </html>
