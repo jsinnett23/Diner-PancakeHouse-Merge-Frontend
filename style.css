@@ -59,3 +59,54 @@ h1 {
 .navbar a.login {
     float: right;
 }
+
+/* Add your styles here */
+.login-container,
+.signup-container {
+    width: 300px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.terms a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.terms {
+    font-size: 0.8em;
+}
+
+.or {
+    margin: 20px 0;
+}
+

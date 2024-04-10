@@ -1,44 +1,79 @@
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>The merger</title>
-    <link href="index.css" rel="stylesheet"/>
-  </head>
-  <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Merger - Menu</title>
+    <link href="index.css" rel="stylesheet">
+</head>
+<body>
+    <div class="navbar">
+        <a href="#" onclick="displayAllMenus()">All Menus</a>
+        <a href="#" onclick="displayBreakfast()">Breakfast</a>
+        <a href="#" onclick="displayLunch()">Lunch</a>
+        <a href="#" onclick="displayDinner()">Dinner</a>
+        <a href="#" onclick="displayVegetarian()">Vegetarian</a>
+        <a href="login.html" class="login">Login</a>
+    </div>
+
     <div id="menu" class="container">
-        <h1>Diner-PancakHouse Menu</h1>
+        <h1>Diner-PancakeHouse Menu</h1>
+        <!-- Menu items will be displayed here -->
     </div>
 
     <script>
-      let host = "http://localhost:8080";
-      let menuDiv = document.getElementById("menu");
+        let host = "https://homework7-ydq3.onrender.com/merger";
+        let menuDiv = document.getElementById("menu");
 
-      displayTheMenu();
-
-      async function getTheMenu() {
-        let response = await fetch(host + "/merger");
-        let menu = await response.json();
-        return menu;
-      }
-
-      async function displayTheMenu() {
-        let menu = await getTheMenu();
-        for (let menuItem of menu) {
-          let div = document.createElement("div");
-          div.class = "menu-item";
-          div.innerHTML = `
-               <div class="menu-item">
-                <div class="item-name">${menuItem.name}</div>
-                <div class="item-description">${menuItem.description}</div>
-                <div class="item-price">${menuItem.price}</div>
-               </div>
-               `;
-          menuDiv.appendChild(div);
+        async function displayAllMenus() {
+            menuDiv.innerHTML = '';
+            let response = await fetch(`${host}`);
+            let menuItems = await response.json();
+            displayMenuItems(menuItems);
         }
-      }
+
+        async function displayBreakfast() {
+            menuDiv.innerHTML = '';
+            let response = await fetch(`${host}/breakfast`);
+            let menuItems = await response.json();
+            displayMenuItems(menuItems);
+        }
+
+        async function displayLunch() {
+            menuDiv.innerHTML = '';
+            let response = await fetch(`${host}/lunch`);
+            let menuItems = await response.json();
+            displayMenuItems(menuItems);
+        }
+
+        async function displayDinner() {
+            menuDiv.innerHTML = '';
+            let response = await fetch(`${host}/supper`);
+            let menuItems = await response.json();
+            displayMenuItems(menuItems);
+        }
+
+        async function displayVegetarian() {
+            menuDiv.innerHTML = '';
+            let response = await fetch(`${host}/vegetarian`);
+            let menuItems = await response.json();
+            displayMenuItems(menuItems);
+        }
+
+        function displayMenuItems(menuItems) {
+            for (let menuItem of menuItems) {
+                let div = document.createElement("div");
+                div.className = "menu-item";
+                div.innerHTML = `
+                    <div class="item-name">${menuItem.name}</div>
+                    <div class="item-description">${menuItem.description}</div>
+                    <div class="item-price">$${menuItem.price}</div>
+                `;
+                menuDiv.appendChild(div);
+            }
+        }
+
+        displayAllMenus();
     </script>
-  </body>
+</body>
 </html>
